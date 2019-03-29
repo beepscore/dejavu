@@ -18,7 +18,16 @@ MySQLdb for interfacing with MySQL databases
 numpy for taking the FFT of audio signals
 pydub, a Python ffmpeg wrapper
 scipy, used in peak finding algorithms
-yaudio for grabbing audio from microphone
+pyaudio for grabbing audio from microphone
+
+sqlalchemy
+
+### sqlalchemy_utils
+https://sqlalchemy-utils.readthedocs.io/en/latest/installation.html
+#### package name contains dash
+    sqlalchemy-utils
+#### import name contains underscore
+import sqlalchemy_utils
 
 ### convert wav to mp3
 
