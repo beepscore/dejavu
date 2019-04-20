@@ -46,11 +46,18 @@ if __name__ == '__main__':
     djv.fingerprint_directory("mp3", [".mp3"])
 
     # Recognize audio from a file
-    song = djv.recognize(
-        # FileRecognizer, "mp3/Sean-Fournier--Falling-For-You.mp3"
-        FileRecognizer, "mp3/chantix.mp3"
-    )
-    print("From file we recognized: %s\n" % song)
+    # filename_containing_audio_to_match = 'mp3/Sean-Fournier--Falling-For-You.mp3'
+    filename_containing_audio_to_match = 'mp3/chantix.mp3'
+    match_dict = djv.recognize(FileRecognizer, filename_containing_audio_to_match)
+    match_dict_json = json.dumps(match_dict)
+    print('filename_containing_audio_to_match: {0}, match_dict_json: {1}\n'
+          .format(filename_containing_audio_to_match, match_dict_json))
+    # example output
+    # filename_containing_audio_to_match: mp3/chantix.mp3,
+    # match_dict_json: {"song_id": 12, "song_name": "chantix", "confidence": 43335,
+    # "offset": 0, "offset_seconds": 0.0,
+    # "file_sha1": "7050797273712b325559706c4d6878594238583866486d4b4371493d0a",
+    # "match_time": 11.098071813583374}
 
     # # Or recognize audio from your microphone for `secs` seconds
     # secs = 5
