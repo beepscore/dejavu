@@ -3,11 +3,12 @@ from __future__ import print_function
 import json
 import os
 import logging
-import warnings
-warnings.filterwarnings("ignore")
 
 from dejavu import Dejavu
 from dejavu.recognize import FileRecognizer, MicrophoneRecognizer
+
+import warnings
+warnings.filterwarnings("ignore")
 
 # Reference example.py
 
