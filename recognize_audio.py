@@ -60,22 +60,31 @@ def recognize_audio_from_microphone(djv, seconds=5):
     method will return shortly after 'seconds' number of seconds
     :param djv: a dejavu instance, preconfigured by having run fingerprint_directory
     :param seconds: number of seconds to recognize audio
-    :return:
+    :return: match_dict if confidence is >= confidence_minimum, else None
     """
     logger.debug('recognize_audio_from_microphone')
     match_dict = djv.recognize(MicrophoneRecognizer, seconds=seconds)
     if match_dict is None:
         logger.debug("Nothing recognized -- did you play the song out loud so your mic could hear it? :)")
-    else:
-        match_dict_json = json.dumps(match_dict)
-        logger.debug('From mic with {0} seconds we recognized: {1}\n'.format(seconds, match_dict_json))
-        # example output
-        # From mic with 5 seconds we recognized:
-        # {"song_id": 5, "song_name": "sandals", "confidence": 186,
-        # "offset": 14, "offset_seconds": 0.65016,
-        # "file_sha1": "39595175712f5051494768766b4f444338774174324952736773773d0a"}
+        return None
 
-    return match_dict
+    else:
+        # use confidence_minimum to help avoid false positives,
+        # e.g. avoid algorithm accidentally matching to background noise with confidence ~ 10
+        confidence_minimum = 100
+        confidence = match_dict.get('confidence')
+
+        if confidence is not None and confidence >= confidence_minimum:
+            match_dict_json = json.dumps(match_dict)
+            logger.debug('From mic with {0} seconds we recognized: {1}\n'.format(seconds, match_dict_json))
+            # example output
+            # From mic with 5 seconds we recognized:
+            # {"song_id": 5, "song_name": "sandals", "confidence": 186,
+            # "offset": 14, "offset_seconds": 0.65016,
+            # "file_sha1": "39595175712f5051494768766b4f444338774174324952736773773d0a"}
+            return match_dict
+
+    return None
 
 
 def recognize_audio_from_microphone_with_count(djv, seconds=5, count_max=4):
