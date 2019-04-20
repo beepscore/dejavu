@@ -1,9 +1,18 @@
 # Purpose
 Record info about using dejavu.
 
-# Reference
+# References
 forked from
 https://github.com/bcollazo/dejavu
+
+## PyAudio with USB audio interface
+### Recording multiple microphones in python
+Scarlett audio interface and PyAudio
+https://stackoverflow.com/questions/25620285/recording-multiple-microphones-in-python
+
+### python2.7 on Raspberry Pi 3 - Pyaudio Input overflowed
+Raspberry Pi 3 Model B and Focusrite Scarlett 2i2 USB Sound Card
+https://stackoverflow.com/questions/38042875/python2-7-on-raspberry-pi-3-pyaudio-input-overflowed
 
 # Results
 
