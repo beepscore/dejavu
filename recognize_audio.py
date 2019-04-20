@@ -2,7 +2,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 import json
 import os
-import logging
+import logging_util
 
 from dejavu import Dejavu
 from dejavu.recognize import FileRecognizer, MicrophoneRecognizer
@@ -11,6 +11,10 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # Reference example.py
+
+# instantiate at module level, not class level
+# https://stackoverflow.com/questions/22807972/python-best-practice-in-terms-of-logging
+logger = logging_util.get_logger(__name__)
 
 
 def config_environment_variable_database_url_from_file(filename):
@@ -29,7 +33,7 @@ def config_environment_variable_database_url_from_file(filename):
 
     except IOError:
         # e.g. file doesn't exist
-        print("Could not read file: " + filename)
+        logger.debug("Could not read file: " + filename)
 
 
 def recognize_audio_from_a_file(djv, filename_containing_audio_to_match):
@@ -40,8 +44,8 @@ def recognize_audio_from_a_file(djv, filename_containing_audio_to_match):
     """
     match_dict = djv.recognize(FileRecognizer, filename_containing_audio_to_match)
     match_dict_json = json.dumps(match_dict)
-    print('filename_containing_audio_to_match: {0}, match_dict_json: {1}\n'
-          .format(filename_containing_audio_to_match, match_dict_json))
+    logger.debug('filename_containing_audio_to_match: {0}, match_dict_json: {1}\n'
+                 .format(filename_containing_audio_to_match, match_dict_json))
 
     # example output
     # filename_containing_audio_to_match: mp3/chantix.mp3,
@@ -58,13 +62,13 @@ def recognize_audio_from_microphone(djv, seconds=5):
     :param seconds: number of seconds to recognize audio
     :return:
     """
-    print('recognize_audio_from_microphone')
+    logger.debug('recognize_audio_from_microphone')
     match_dict = djv.recognize(MicrophoneRecognizer, seconds=seconds)
     if match_dict is None:
-        print("Nothing recognized -- did you play the song out loud so your mic could hear it? :)")
+        logger.debug("Nothing recognized -- did you play the song out loud so your mic could hear it? :)")
     else:
         match_dict_json = json.dumps(match_dict)
-        print('From mic with {0} seconds we recognized: {1}\n'.format(seconds, match_dict_json))
+        logger.debug('From mic with {0} seconds we recognized: {1}\n'.format(seconds, match_dict_json))
         # example output
         # From mic with 5 seconds we recognized:
         # {"song_id": 5, "song_name": "sandals", "confidence": 186,
@@ -82,7 +86,7 @@ def recognize_audio_from_microphone_with_count(djv, seconds=5, count_max=4):
     :return:
     """
     for count in range(0, count_max):
-        print('{0}/{1}'.format(count, count_max))
+        logger.debug(msg='{0}/{1}'.format(count, count_max))
 
         # waits for recognize_audio_from_microphone to return
         # recognize_audio_from_microphone returns shortly after 'seconds' number of seconds
@@ -91,12 +95,10 @@ def recognize_audio_from_microphone_with_count(djv, seconds=5, count_max=4):
 
 if __name__ == '__main__':
 
-    logging.basicConfig(level=logging.INFO)
-
     config_environment_variable_database_url_from_file('data/config.json')
 
     dburl = os.getenv('DATABASE_URL', default='sqlite://')
-    print('dburl', dburl)
+    logger.debug('dburl: {}'.format(dburl))
 
     # instantiate a Dejavu object, configured to use database at dburl
     djv = Dejavu(dburl=dburl)
