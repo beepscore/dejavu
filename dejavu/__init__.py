@@ -3,7 +3,10 @@ from __future__ import print_function
 import binascii
 import dejavu.decoder as decoder
 from . import fingerprint
-import logging
+
+# import logging
+import logging_util
+
 import multiprocessing
 import os
 import traceback
@@ -13,7 +16,8 @@ from dejavu.database import Database
 from six.moves import range
 from six.moves import zip
 
-logger = logging.getLogger(__name__)
+# logger = logging.getLogger(__name__)
+logger = logging_util.get_logger(__name__)
 
 
 class Dejavu(object):
