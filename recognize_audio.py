@@ -50,19 +50,18 @@ def recognize_audio_from_a_file(djv, filename_containing_audio_to_match):
     # "match_time": 11.098071813583374}
 
 
-def recognize_audio_from_microphone(djv):
+def recognize_audio_from_microphone(djv, seconds=5):
     """
     :param djv: a dejavu instance, preconfigured by having run fingerprint_directory
+    :param seconds: number of seconds to recognize audio
     :return:
     """
-    # recognize audio from your microphone for 'secs' seconds
-    secs = 5
-    match_dict = djv.recognize(MicrophoneRecognizer, seconds=secs)
+    match_dict = djv.recognize(MicrophoneRecognizer, seconds=seconds)
     if match_dict is None:
         print("Nothing recognized -- did you play the song out loud so your mic could hear it? :)")
     else:
         match_dict_json = json.dumps(match_dict)
-        print('From mic with {0} seconds we recognized: {1}\n'.format(secs, match_dict_json))
+        print('From mic with {0} seconds we recognized: {1}\n'.format(seconds, match_dict_json))
         # example output
         # From mic with 5 seconds we recognized:
         # {"song_id": 5, "song_name": "sandals", "confidence": 186,
@@ -90,4 +89,4 @@ if __name__ == '__main__':
     # example, may be useful for debugging
     # recognize_audio_from_a_file(djv, filename_containing_audio_to_match='mp3/chantix.mp3')
 
-    recognize_audio_from_microphone(djv)
+    recognize_audio_from_microphone(djv, 5)
