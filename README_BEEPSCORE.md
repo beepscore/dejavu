@@ -24,8 +24,10 @@ sqlalchemy
 
 ### sqlalchemy_utils
 https://sqlalchemy-utils.readthedocs.io/en/latest/installation.html
+
 #### package name contains dash
     sqlalchemy-utils
+
 #### import name contains underscore
 import sqlalchemy_utils
 
@@ -33,7 +35,7 @@ import sqlalchemy_utils
 
     ffmpeg -i a.wav -f mp3 a.mp3
 
-### Put files in mp3 directory
+### Put audio files in mp3 directory
 
 ### ./test_dejavu.sh
 This makes a temporary sqlite file
@@ -47,6 +49,5 @@ check sqlite schema
 #### create database (how to set up schema?)
 
 #### set environment variable for database
-
 
 
