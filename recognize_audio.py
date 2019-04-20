@@ -1,20 +1,29 @@
 from __future__ import absolute_import
 from __future__ import print_function
+import json
 import os
 import logging
 import warnings
 warnings.filterwarnings("ignore")
 
-# Reference example.py
-
 from dejavu import Dejavu
 from dejavu.recognize import FileRecognizer, MicrophoneRecognizer
+
+# Reference example.py
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
 
-    # use temporary in-memory database
-    dburl = os.getenv('DATABASE_URL', 'sqlite://')
+    # read configuration file to set environment variable
+    # alternatively could set a python variable
+    with open('data/config.json') as f:
+        config_dict = json.load(f)
+        db_url_from_file = config_dict.get('DATABASE_URL')
+        if db_url_from_file is not None:
+            os.environ['DATABASE_URL'] = db_url_from_file
+
+    dburl = os.getenv('DATABASE_URL', default='sqlite://')
+    print('dburl', dburl)
     djv = Dejavu(dburl=dburl)
 
     # Fingerprint all the mp3's in the directory we give it

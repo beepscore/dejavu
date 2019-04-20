@@ -79,9 +79,14 @@ To run test
 
 This populates results directory including test.db
 
+## data/config.json
+may contain a json dictionary e.g.
+
+    {"DATABASE_URL": "results/test.db"}
+
 Ways to run:
 Can run recognize_audio.py
-If no database exists it will make a new one in-memory?
+If no database exists it will make a new one, I think in-memory.
 
     python3 recognize_audio.py
 
