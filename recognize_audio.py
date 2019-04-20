@@ -95,7 +95,8 @@ def recognize_audio_from_microphone_with_count(djv, seconds=5, count_max=4):
     :return:
     """
     for count in range(0, count_max):
-        logger.debug(msg='{0}/{1}'.format(count, count_max))
+        iteration = count + 1
+        logger.debug(msg='{}/{}'.format(iteration, count_max))
 
         # waits for recognize_audio_from_microphone to return
         # recognize_audio_from_microphone returns shortly after 'seconds' number of seconds
