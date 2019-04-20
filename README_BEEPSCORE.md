@@ -87,6 +87,7 @@ To run test
     ./test_dejavu.sh
 
 This populates results directory including test.db
+Ok to delete contents of results directory.
 
 ## data/config.json
 may contain a json dictionary e.g.
@@ -95,19 +96,25 @@ may contain a json dictionary e.g.
 
 Ways to run:
 Can run recognize_audio.py
-If no database exists it will make a new one, I think in-memory.
+If no database exists it will make a new one, I think in-memory sqlite.
 
+    conda activate <environment>
+    
     python3 recognize_audio.py
 
-    INFO:dejavu:Fingerprinting channel 1/2 for mp3/google-help-german-woman.mp3
-    INFO:dejavu:Fingerprinting channel 1/2 for mp3/aleve-proven-better.mp3
-    INFO:dejavu:Fingerprinting channel 1/2 for mp3/volvo-birds.mp3
+example output:
+
+    2019-04-20 15:01:55 DEBUG    <module> line:101 dburl: sqlite://
+    2019-04-20 15:01:55 INFO     _fingerprint_worker line:184 Fingerprinting channel 1/2 for data/commercial_mp3/google-help-german-woman.mp3
+    2019-04-20 15:01:55 INFO     _fingerprint_worker line:184 Fingerprinting channel 1/2 for data/commercial_mp3/aleve-proven-better.mp3
     ...
 
-    From file we recognized: {'song_id': 12, 'song_name': 'chantix', 'confidence': 43335,
-    'offset': 0, 'offset_seconds': 0.0,
-    'file_sha1': '7050797273712b325559706c4d6878594238583866486d4b4371493d0a', 'match_time': 10.400582075119019}
+    2019-04-20 15:02:49 DEBUG    recognize_audio_from_a_file line:48
+        filename_containing_audio_to_match: data/commercial_mp3/chantix.mp3,
+        match_dict_json: {"song_id": 14, "song_name": "chantix", "confidence": 43335,
+        "offset": 0, "offset_seconds": 0.0,
+        "file_sha1": "7050797273712b325559706c4d6878594238583866486d4b4371493d0a",
+        "match_time": 12.952589988708496}
 
-Ok to delete contents of results directory.
 
 
