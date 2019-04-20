@@ -106,9 +106,9 @@ if __name__ == '__main__':
     # Prepare djv to be able to recognize audio.
     # Fingerprint all the mp3's in the directory we give it
     # this may take several seconds per file
-    djv.fingerprint_directory("mp3", [".mp3"])
+    djv.fingerprint_directory("data/commercial_mp3", [".mp3"])
 
     # example, may be useful for debugging
-    # recognize_audio_from_a_file(djv, filename_containing_audio_to_match='mp3/chantix.mp3')
+    recognize_audio_from_a_file(djv, filename_containing_audio_to_match='data/commercial_mp3/chantix.mp3')
 
     recognize_audio_from_microphone_with_count(djv, seconds=5, count_max=4)
