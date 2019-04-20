@@ -42,6 +42,7 @@ if __name__ == '__main__':
     djv = Dejavu(dburl=dburl)
 
     # Fingerprint all the mp3's in the directory we give it
+    # this may take several seconds per file
     djv.fingerprint_directory("mp3", [".mp3"])
 
     # Recognize audio from a file
