@@ -72,10 +72,3 @@ if __name__ == '__main__':
         # {"song_id": 5, "song_name": "sandals", "confidence": 186,
         # "offset": 14, "offset_seconds": 0.65016,
         # "file_sha1": "39595175712f5051494768766b4f444338774174324952736773773d0a"}
-
-    # Or use a recognizer without the shortcut, in anyway you would like
-    # recognizer = FileRecognizer(djv)
-    # song = recognizer.recognize_file(
-    #     "mp3/Josh-Woodward--I-Want-To-Destroy-Something-Beautiful.mp3"
-    # )
-    # print("No shortcut, we recognized: %s\n" % song)
