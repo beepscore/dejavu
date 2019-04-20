@@ -11,16 +11,31 @@ from dejavu.recognize import FileRecognizer, MicrophoneRecognizer
 
 # Reference example.py
 
+
+def config_environment_variable_database_url_from_file(filename):
+    """
+    Reads configuration file, may set environment variable DATABASE_URL.
+    https://stackoverflow.com/questions/5627425/what-is-a-good-way-to-handle-exceptions-when-trying-to-read-a-file-in-python
+    Alternatively could set a python variable.
+    :param filename: a json file that may contain a dictionary with key "DATABASE_URL"
+    """
+    try:
+        with open(filename) as f:
+            config_dict = json.load(f)
+            db_url_from_file = config_dict.get('DATABASE_URL')
+            if db_url_from_file is not None:
+                os.environ['DATABASE_URL'] = db_url_from_file
+
+    except IOError:
+        # e.g. file doesn't exist
+        print("Could not read file: " + filename)
+
+
 if __name__ == '__main__':
+
     logging.basicConfig(level=logging.INFO)
 
-    # read configuration file to set environment variable
-    # alternatively could set a python variable
-    with open('data/config.json') as f:
-        config_dict = json.load(f)
-        db_url_from_file = config_dict.get('DATABASE_URL')
-        if db_url_from_file is not None:
-            os.environ['DATABASE_URL'] = db_url_from_file
+    config_environment_variable_database_url_from_file('data/config.json')
 
     dburl = os.getenv('DATABASE_URL', default='sqlite://')
     print('dburl', dburl)
