@@ -47,11 +47,11 @@ if __name__ == '__main__':
 
     # Recognize audio from a file
     # filename_containing_audio_to_match = 'mp3/Sean-Fournier--Falling-For-You.mp3'
-    filename_containing_audio_to_match = 'mp3/chantix.mp3'
-    match_dict = djv.recognize(FileRecognizer, filename_containing_audio_to_match)
-    match_dict_json = json.dumps(match_dict)
-    print('filename_containing_audio_to_match: {0}, match_dict_json: {1}\n'
-          .format(filename_containing_audio_to_match, match_dict_json))
+    # filename_containing_audio_to_match = 'mp3/chantix.mp3'
+    # match_dict = djv.recognize(FileRecognizer, filename_containing_audio_to_match)
+    # match_dict_json = json.dumps(match_dict)
+    # print('filename_containing_audio_to_match: {0}, match_dict_json: {1}\n'
+    #       .format(filename_containing_audio_to_match, match_dict_json))
     # example output
     # filename_containing_audio_to_match: mp3/chantix.mp3,
     # match_dict_json: {"song_id": 12, "song_name": "chantix", "confidence": 43335,
@@ -59,15 +59,19 @@ if __name__ == '__main__':
     # "file_sha1": "7050797273712b325559706c4d6878594238583866486d4b4371493d0a",
     # "match_time": 11.098071813583374}
 
-    # # Or recognize audio from your microphone for `secs` seconds
-    # secs = 5
-    # song = djv.recognize(MicrophoneRecognizer, seconds=secs)
-    # if song is None:
-    #     print(
-    #         "Nothing recognized -- did you play the song out loud so your mic could hear it? :)"
-    #     )
-    # else:
-    #     print("From mic with %d seconds we recognized: %s\n" % (secs, song))
+    # Alternatively recognize audio from your microphone for 'secs' seconds
+    secs = 5
+    match_dict = djv.recognize(MicrophoneRecognizer, seconds=secs)
+    if match_dict is None:
+        print("Nothing recognized -- did you play the song out loud so your mic could hear it? :)")
+    else:
+        match_dict_json = json.dumps(match_dict)
+        print('From mic with {0} seconds we recognized: {1}\n'.format(secs, match_dict_json))
+        # example output
+        # From mic with 5 seconds we recognized:
+        # {"song_id": 5, "song_name": "sandals", "confidence": 186,
+        # "offset": 14, "offset_seconds": 0.65016,
+        # "file_sha1": "39595175712f5051494768766b4f444338774174324952736773773d0a"}
 
     # Or use a recognizer without the shortcut, in anyway you would like
     # recognizer = FileRecognizer(djv)
