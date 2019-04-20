@@ -50,24 +50,12 @@ def recognize_audio_from_a_file(djv, filename_containing_audio_to_match):
     # "match_time": 11.098071813583374}
 
 
-if __name__ == '__main__':
-
-    logging.basicConfig(level=logging.INFO)
-
-    config_environment_variable_database_url_from_file('data/config.json')
-
-    dburl = os.getenv('DATABASE_URL', default='sqlite://')
-    print('dburl', dburl)
-    djv = Dejavu(dburl=dburl)
-
-    # Fingerprint all the mp3's in the directory we give it
-    # this may take several seconds per file
-    djv.fingerprint_directory("mp3", [".mp3"])
-
-    # example, may be useful for debugging
-    recognize_audio_from_a_file(djv, filename_containing_audio_to_match='mp3/chantix.mp3')
-
-    # Alternatively recognize audio from your microphone for 'secs' seconds
+def recognize_audio_from_microphone(djv):
+    """
+    :param djv: a dejavu instance, preconfigured by having run fingerprint_directory
+    :return:
+    """
+    # recognize audio from your microphone for 'secs' seconds
     secs = 5
     match_dict = djv.recognize(MicrophoneRecognizer, seconds=secs)
     if match_dict is None:
@@ -80,3 +68,26 @@ if __name__ == '__main__':
         # {"song_id": 5, "song_name": "sandals", "confidence": 186,
         # "offset": 14, "offset_seconds": 0.65016,
         # "file_sha1": "39595175712f5051494768766b4f444338774174324952736773773d0a"}
+
+
+if __name__ == '__main__':
+
+    logging.basicConfig(level=logging.INFO)
+
+    config_environment_variable_database_url_from_file('data/config.json')
+
+    dburl = os.getenv('DATABASE_URL', default='sqlite://')
+    print('dburl', dburl)
+
+    # instantiate a Dejavu object, configured to use database at dburl
+    djv = Dejavu(dburl=dburl)
+
+    # Prepare djv to be able to recognize audio.
+    # Fingerprint all the mp3's in the directory we give it
+    # this may take several seconds per file
+    djv.fingerprint_directory("mp3", [".mp3"])
+
+    # example, may be useful for debugging
+    # recognize_audio_from_a_file(djv, filename_containing_audio_to_match='mp3/chantix.mp3')
+
+    recognize_audio_from_microphone(djv)
