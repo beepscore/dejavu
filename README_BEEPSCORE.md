@@ -68,6 +68,12 @@ If using Anaconda.
 
 ### put audio files in mp3 directory
 
+## Select live audio input source
+Selecting live audio input from an audio interface instead of from microphone gives a cleaner signal without room noise.
+If using macOS and an audio interface, go to System Preferences / Sound / Input.
+Select the interface e.g. Scarlett 2i4 USB.
+Note I haven't tried running Dejavu on Raspberry Pi Raspbian yet, and haven't selected an audio input source.
+
 ## ./test_dejavu.sh
 Optional step. Running test_dejavu.sh makes a temporary sqlite file
 
