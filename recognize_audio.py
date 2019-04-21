@@ -78,10 +78,10 @@ def recognize_audio_from_microphone(djv, seconds=5):
             match_dict_json = json.dumps(match_dict)
             logger.debug('From mic with {0} seconds we recognized: {1}\n'.format(seconds, match_dict_json))
             # example output
-            # From mic with 5 seconds we recognized:
-            # {"song_id": 5, "song_name": "sandals", "confidence": 186,
-            # "offset": 14, "offset_seconds": 0.65016,
-            # "file_sha1": "39595175712f5051494768766b4f444338774174324952736773773d0a"}
+            # 2019-04-20 21:01:40 DEBUG    recognize_audio_from_microphone line:79
+            # From mic with 5 seconds we recognized: {"song_id": 13, "song_name": "chantix", "confidence": 376,
+            # "offset": 525, "offset_seconds": 24.38095,
+            # "file_sha1": "7050797273712b325559706c4d6878594238583866486d4b4371493d0a"}
             return match_dict
 
     return None
@@ -119,6 +119,6 @@ if __name__ == '__main__':
     djv.fingerprint_directory("data/commercial_mp3", [".mp3"])
 
     # example, may be useful for debugging
-    recognize_audio_from_a_file(djv, filename_containing_audio_to_match='data/commercial_mp3/chantix.mp3')
+    # recognize_audio_from_a_file(djv, filename_containing_audio_to_match='data/commercial_mp3/chantix.mp3')
 
     recognize_audio_from_microphone_with_count(djv, seconds=5, count_max=4)
